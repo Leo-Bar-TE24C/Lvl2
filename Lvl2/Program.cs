@@ -4,7 +4,25 @@ int hpright = 100;
 
 //------------------------------------------------------------------------------
 //weapon/attacks stats
-int i = Random.Shared.Next(11);
+int CritChance = Random.Shared.Next(1, 101);
+
+int enemyDMG = Random.Shared.Next(7, 9);
+
+bool handsOnly = true;
+int throwHands = Random.Shared.Next(3,6);
+int handCount = Random.Shared.Next(1, 5);
+int allTheHands = Random.Shared.Next(1, 2001);
+
+bool swordHave = false;
+int swordDMG = Random.Shared.Next(7, 9);
+
+
+bool axeHave = false;
+int axeBigDMG = Random.Shared.Next(20, 26);
+int axeSmallDMG = Random.Shared.Next(1, 5);
+int axebigDMGChance = Random.Shared.Next(1, 11);
+
+bool shieldHave = false;
 
 //------------------------------------------------------------------------------
 
@@ -22,21 +40,33 @@ Console.ReadLine();
 
 while (retry == true)
 {
+    heroHP = 100;
+    hpright = 100;
+
     while (heroHP > 1 && hpright > 1)
     {
-        hpright -= i;
-        Console.WriteLine($"{name} dealt {i} damage to OPPONENT \nOPONENT has {hpright} HP left");
+        if (handsOnly == true)
+        {
+            while (handCount > 0)
+            {
+                hpright -= throwHands;
+                Console.WriteLine($"{name} dealt {throwHands} damage to OPPONENT \nOPONENT has {hpright} HP left");
+                Console.WriteLine("-----------------------------------------");
+
+                throwHands = Random.Shared.Next(3, 6);
+                handCount -= 1;
+            }
+            handCount = Random.Shared.Next(1, 5);
+        }
+
+
+        //------------------------------------------------------------------------------
+
+        heroHP -= enemyDMG;
+        Console.WriteLine($"OPPONENT dealt {enemyDMG} damage to {name} \n{name} has {heroHP} HP left");
         Console.WriteLine("-----------------------------------------");
 
-        i = Random.Shared.Next(11);
-
-//------------------------------------------------------------------------------
-
-        heroHP -= i;
-        Console.WriteLine($"OPPONENT dealt {i} damage to {name} \n{name} has {heroHP} HP left");
-        Console.WriteLine("-----------------------------------------");
-
-        i = Random.Shared.Next(11);
+        enemyDMG = Random.Shared.Next(11);
 
         Console.ReadKey();
         Console.Clear();
@@ -66,14 +96,12 @@ while (retry == true)
     if (retryConfirm == "a")
     {
         retry = true;
-        Console.ReadLine();
     }
     if (retryConfirm == "b")
     {
         retry = false;
-        Console.ReadLine();
     }
-    else
+    if (retryConfirm != "a" && retryConfirm != "b")
     {
         Console.WriteLine("We'll take that as a no");
         retry = false;
