@@ -1,15 +1,15 @@
 ﻿
 int heroHP = 100;
-int hpright = 100;
+int enemyHP = 100;
 
 //------------------------------------------------------------------------------
-//weapon/attacks stats
+//weapon/attack stats
 int CritChance = Random.Shared.Next(1, 101);
 
 int enemyDMG = Random.Shared.Next(7, 9);
 
-bool handsOnly = true;
-int throwHands = Random.Shared.Next(3,6);
+bool handsOnly = false;
+int throwHands = Random.Shared.Next(3, 6);
 int handCount = Random.Shared.Next(1, 5);
 int allTheHands = Random.Shared.Next(1, 2001);
 
@@ -22,35 +22,58 @@ int axeBigDMG = Random.Shared.Next(20, 26);
 int axeSmallDMG = Random.Shared.Next(1, 5);
 int axebigDMGChance = Random.Shared.Next(1, 11);
 
-bool shieldHave = false;
-
 //------------------------------------------------------------------------------
 
 bool retry = true;
 
 //------------------------------------------------------------------------------
 
-Console.WriteLine("Please chose a name");
-string name = Console.ReadLine().ToUpper();
-
-Console.WriteLine("Press ENTER to start");
-Console.ReadLine();
 
 //------------------------------------------------------------------------------
 
 while (retry == true)
 {
     heroHP = 100;
-    hpright = 100;
+    enemyHP = 100;
 
-    while (heroHP > 1 && hpright > 1)
+    Console.WriteLine("Please chose a name");
+    string name = Console.ReadLine().ToUpper();
+
+
+    Console.WriteLine("chose a weapon: \nA) Sword  \nB) Axe  \nC) None");
+    string weaponChoice = Console.ReadLine().ToLower();
+    if (weaponChoice == "a")
+    {
+        swordHave = true;
+        Console.WriteLine(name + "has chosen the sword");
+    }
+    if (weaponChoice == "B")
+    {
+        axeHave = true;
+        Console.WriteLine(name + "has chosen the axe");
+    }
+    if (weaponChoice != "a" && weaponChoice != "b")
+    {
+        handsOnly = true;
+        Console.WriteLine(name + "has chosen their fists");
+    }
+
+    Console.WriteLine("Press ENTER to start");
+    Console.ReadLine();
+
+    while (heroHP > 1 && enemyHP > 1)
     {
         if (handsOnly == true)
         {
             while (handCount > 0)
             {
-                hpright -= throwHands;
-                Console.WriteLine($"{name} dealt {throwHands} damage to OPPONENT \nOPONENT has {hpright} HP left");
+                if (allTheHands == 2000)
+                {
+                    handCount = 1000;
+                }
+
+                enemyHP -= throwHands;
+                Console.WriteLine($"{name} dealt {throwHands} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
                 Console.WriteLine("-----------------------------------------");
 
                 throwHands = Random.Shared.Next(3, 6);
@@ -58,21 +81,47 @@ while (retry == true)
             }
             handCount = Random.Shared.Next(1, 5);
         }
+        if (swordHave == true)
+        {
+            enemyHP -= swordDMG;
+            Console.WriteLine($"{name} dealt {swordDMG} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
+            Console.WriteLine("-----------------------------------------");
+            swordDMG = Random.Shared.Next(7, 9);
+        }
+        if (axeHave == true)
+        {
+            if (axebigDMGChance == 10)
+            {
+                enemyHP -= axeBigDMG;
+                Console.WriteLine($"{name} dealt {axeBigDMG} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
+                Console.WriteLine("-----------------------------------------");
+                axeBigDMG = Random.Shared.Next(20, 26);
+            }
+            else
+            {
+                enemyHP -= axeSmallDMG;
+                Console.WriteLine($"{name} dealt {axeSmallDMG} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
+                Console.WriteLine("-----------------------------------------");
+                axeSmallDMG = Random.Shared.Next(1, 5);
+            }
+        }
 
 
         //------------------------------------------------------------------------------
+        if (enemyHP > 0)
+        {
+            heroHP -= enemyDMG;
+            Console.WriteLine($"OPPONENT dealt {enemyDMG} damage to {name} \n{name} has {heroHP} HP left");
+            Console.WriteLine("-----------------------------------------");
 
-        heroHP -= enemyDMG;
-        Console.WriteLine($"OPPONENT dealt {enemyDMG} damage to {name} \n{name} has {heroHP} HP left");
-        Console.WriteLine("-----------------------------------------");
+            enemyDMG = Random.Shared.Next(11);
 
-        enemyDMG = Random.Shared.Next(11);
-
-        Console.ReadKey();
-        Console.Clear();
+            Console.ReadKey();
+            Console.Clear();
+        }
     }
 
-    if (heroHP < 1 && hpright < 1)
+    if (heroHP < 1 && enemyHP < 1)
     {
         Console.WriteLine("The fighters knocked eacother out");
     }
@@ -82,7 +131,7 @@ while (retry == true)
         {
             Console.WriteLine(" wins");
         }
-        if (hpright < 1)
+        if (enemyHP < 1)
         {
             Console.WriteLine($"{name} wins");
         }
