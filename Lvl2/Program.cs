@@ -71,6 +71,10 @@ while (retry == true)
                 {
                     handCount = 1000;
                 }
+                if (CritChance > 80)
+                {
+                    throwHands *= 2;
+                }
 
                 enemyHP -= throwHands;
                 Console.WriteLine($"{name} dealt {throwHands} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
@@ -78,6 +82,7 @@ while (retry == true)
 
                 throwHands = Random.Shared.Next(3, 6);
                 handCount -= 1;
+                CritChance = Random.Shared.Next(1, 101);
             }
             handCount = Random.Shared.Next(1, 5);
         }
@@ -312,7 +317,7 @@ while (retry == true)
      ::::-=*:                  @******%@@                                                           
 *########*######################+++===++###########################################################*
 """);
-            
+
             Thread.Sleep(500);
             Console.Clear();
             Console.WriteLine("""
@@ -421,7 +426,7 @@ while (retry == true)
  ...........  #-------:-#      ...... .....       @#######*#@@@@           ........................ 
  ::::::::::::.:........ - :.::::::::::::::::::::. -           .: .::::.:::::::::::::::::::::::::::: 
 """);
-           
+
             Thread.Sleep(500);
             Console.Clear();
             Console.WriteLine("""                                                                                                             
@@ -486,14 +491,24 @@ while (retry == true)
          .-:..::.:-                       %%*%+###%%@@.                                             
 .%%%%%%#*+-:--:-:-=+#%%%%%%%%%%%%%%%%%%%%=-.         :-%%#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.
 """);
+            if (CritChance > 75)
+            {
+                swordDMG *= 2;
+            }
+
             enemyHP -= swordDMG;
             Console.WriteLine($"{name} dealt {swordDMG} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
             Console.WriteLine("-----------------------------------------");
             swordDMG = Random.Shared.Next(7, 9);
+            CritChance = Random.Shared.Next(1, 101);
         }
-
         if (axeHave == true)
         {
+            if (CritChance > 90)
+            {
+                axeBigDMG *= 2;
+                axeSmallDMG *= 2;
+            }
             if (axebigDMGChance == 10)
             {
                 enemyHP -= axeBigDMG;
@@ -508,6 +523,7 @@ while (retry == true)
                 Console.WriteLine("-----------------------------------------");
                 axeSmallDMG = Random.Shared.Next(1, 5);
             }
+            CritChance = Random.Shared.Next(1, 101);
         }
 
 
