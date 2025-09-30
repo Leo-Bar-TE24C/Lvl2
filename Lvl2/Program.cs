@@ -63,33 +63,39 @@ while (retry == true)
 
     while (heroHP > 1 && enemyHP > 1)
     {
-        if (handsOnly == true)
+        Console.WriteLine("A)Attack \nB) Deffend");
+        string combat = Console.ReadLine().ToLower();
+        Console.Clear();
+
+        if (combat == "a")
         {
-            while (handCount > 0)
+            if (handsOnly == true)
             {
-                if (allTheHands == 2000)
+                while (handCount > 0)
                 {
-                    handCount = 1000;
-                }
-                if (CritChance > 80)
-                {
-                    throwHands *= 2;
-                }
+                    if (allTheHands == 2000)
+                    {
+                        handCount = 1000;
+                    }
+                    if (CritChance > 80)
+                    {
+                        throwHands *= 2;
+                    }
 
-                enemyHP -= throwHands;
-                Console.WriteLine($"{name} dealt {throwHands} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
-                Console.WriteLine("-----------------------------------------");
+                    enemyHP -= throwHands;
+                    Console.WriteLine($"{name} dealt {throwHands} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
+                    Console.WriteLine("-----------------------------------------");
 
-                throwHands = Random.Shared.Next(3, 6);
-                handCount -= 1;
-                CritChance = Random.Shared.Next(1, 101);
+                    throwHands = Random.Shared.Next(3, 6);
+                    handCount -= 1;
+                    CritChance = Random.Shared.Next(1, 101);
+                }
+                handCount = Random.Shared.Next(1, 5);
             }
-            handCount = Random.Shared.Next(1, 5);
-        }
-        if (swordHave == true)
-        {
+            if (swordHave == true)
+            {
 
-            Console.WriteLine("""                                                                                                                           
+                Console.WriteLine("""                                                                                                                           
  ---------------*   #=:---------------------------------------------------------------------------- 
  --------------=+   @@@+-::------------------------------------------------------------------------ 
  --------------:*##%  .@@*------------------------------------------------------------------------- 
@@ -154,9 +160,9 @@ while (retry == true)
 """);
 
 
-            Thread.Sleep(100);
-            Console.Clear();
-            Console.WriteLine("""   
+                Thread.Sleep(100);
+                Console.Clear();
+                Console.WriteLine("""   
                                                                                                                 
  -==----------------------------------------------------------------------------------------------- 
  %*=----------------------------------------------------------------------------------------------- 
@@ -218,9 +224,9 @@ while (retry == true)
  ::::::::::.=-:::::--=.:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
  """);
 
-            Thread.Sleep(500);
-            Console.Clear();
-            Console.WriteLine("""  
+                Thread.Sleep(500);
+                Console.Clear();
+                Console.WriteLine("""  
                                                                                          :%  -%      @#  %@     
  -------------=*%@@@@@@                         #@@@@@@@+-------------------.. @@  ..@@ .  @@   -@@@
  ---------=*%@@:        .......................         @@@@@@@@*--------=----.  .-:.  .--.  .:-.   
@@ -270,9 +276,9 @@ while (retry == true)
 .%%%%#@+=-::::=*#%%%%%%%%%%%%%%%-: .    . =#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.
 """);
 
-            Thread.Sleep(100);
-            Console.Clear();
-            Console.WriteLine("""
+                Thread.Sleep(100);
+                Console.Clear();
+                Console.WriteLine("""
                                                                                                                 
  -------------------------------------------------------------------------------------------------- 
  -----------------------------------------------------------------==++*++=------------------------- 
@@ -318,9 +324,9 @@ while (retry == true)
 *########*######################+++===++###########################################################*
 """);
 
-            Thread.Sleep(500);
-            Console.Clear();
-            Console.WriteLine("""
+                Thread.Sleep(500);
+                Console.Clear();
+                Console.WriteLine("""
                                                                                                                 
  -------------------------------------------------------------------------------------------------- 
  -------------------------------------------------------------------------------------------------- 
@@ -363,9 +369,9 @@ while (retry == true)
              .                  .      .-%                                                          
 """);
 
-            Thread.Sleep(500);
-            Console.Clear();
-            Console.WriteLine("""
+                Thread.Sleep(500);
+                Console.Clear();
+                Console.WriteLine("""
                                                                                                                 
  ------------------------------------------------------------=--=---------------------------------- 
  -------------------------------------------------------------======------------------------------- 
@@ -427,9 +433,9 @@ while (retry == true)
  ::::::::::::.:........ - :.::::::::::::::::::::. -           .: .::::.:::::::::::::::::::::::::::: 
 """);
 
-            Thread.Sleep(500);
-            Console.Clear();
-            Console.WriteLine("""                                                                                                             
+                Thread.Sleep(500);
+                Console.Clear();
+                Console.WriteLine("""                                                                                                             
  ------------#   %+*+=----------------------------------------------------------------------------- 
  ------------++**  -@#*---=------------------------------------------------------------------------ 
  ------------=::=#@   +-+:------------------------------------------------------------------------- 
@@ -491,54 +497,58 @@ while (retry == true)
          .-:..::.:-                       %%*%+###%%@@.                                             
 .%%%%%%#*+-:--:-:-=+#%%%%%%%%%%%%%%%%%%%%=-.         :-%%#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.
 """);
-            if (CritChance > 75)
-            {
-                swordDMG *= 2;
-            }
+                if (CritChance > 75)
+                {
+                    swordDMG *= 2;
+                }
 
-            enemyHP -= swordDMG;
-            Console.WriteLine($"{name} dealt {swordDMG} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
-            Console.WriteLine("-----------------------------------------");
-            swordDMG = Random.Shared.Next(7, 9);
-            CritChance = Random.Shared.Next(1, 101);
+                enemyHP -= swordDMG;
+                Console.WriteLine($"{name} dealt {swordDMG} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
+                Console.WriteLine("-----------------------------------------");
+                swordDMG = Random.Shared.Next(7, 9);
+                CritChance = Random.Shared.Next(1, 101);
+            }
+            if (axeHave == true)
+            {
+                if (CritChance > 90)
+                {
+                    axeBigDMG *= 2;
+                    axeSmallDMG *= 2;
+                }
+                if (axebigDMGChance == 10)
+                {
+                    enemyHP -= axeBigDMG;
+                    Console.WriteLine($"{name} dealt {axeBigDMG} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
+                    Console.WriteLine("-----------------------------------------");
+                    axeBigDMG = Random.Shared.Next(20, 26);
+                }
+                else
+                {
+                    enemyHP -= axeSmallDMG;
+                    Console.WriteLine($"{name} dealt {axeSmallDMG} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
+                    Console.WriteLine("-----------------------------------------");
+                    axeSmallDMG = Random.Shared.Next(1, 5);
+                }
+                CritChance = Random.Shared.Next(1, 101);
+            }
         }
-        if (axeHave == true)
+        else if (combat == "b")
         {
-            if (CritChance > 90)
-            {
-                axeBigDMG *= 2;
-                axeSmallDMG *= 2;
-            }
-            if (axebigDMGChance == 10)
-            {
-                enemyHP -= axeBigDMG;
-                Console.WriteLine($"{name} dealt {axeBigDMG} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
-                Console.WriteLine("-----------------------------------------");
-                axeBigDMG = Random.Shared.Next(20, 26);
-            }
-            else
-            {
-                enemyHP -= axeSmallDMG;
-                Console.WriteLine($"{name} dealt {axeSmallDMG} damage to OPPONENT \nOPONENT has {enemyHP} HP left");
-                Console.WriteLine("-----------------------------------------");
-                axeSmallDMG = Random.Shared.Next(1, 5);
-            }
-            CritChance = Random.Shared.Next(1, 101);
+            enemyDMG /= 4;
         }
-
 
         //------------------------------------------------------------------------------
-        if (enemyHP > 0)
-        {
-            heroHP -= enemyDMG;
-            Console.WriteLine($"OPPONENT dealt {enemyDMG} damage to {name} \n{name} has {heroHP} HP left");
-            Console.WriteLine("-----------------------------------------");
+            if (enemyHP > 0)
+            {
+                heroHP -= enemyDMG;
+                Console.WriteLine($"OPPONENT dealt {enemyDMG} damage to {name} \n{name} has {heroHP} HP left");
+                Console.WriteLine("-----------------------------------------");
 
-            enemyDMG = Random.Shared.Next(11);
+                enemyDMG = Random.Shared.Next(11);
 
-            Console.ReadKey();
-            Console.Clear();
-        }
+                Console.ReadKey();
+                Console.Clear();
+            }
     }
 
     if (heroHP < 1 && enemyHP < 1)
